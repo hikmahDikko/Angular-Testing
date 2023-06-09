@@ -37,5 +37,27 @@ describe("Async Testing Examples", () => {
 
         flushMicrotasks();
         expect(test).toBeTruthy();
-    }))
+    }));
+
+    it("Asychronous test example - Promises + setTimeout()", fakeAsync(() => {
+        let counter = 0;
+        Promise.resolve().then(() => {
+            counter += 10
+
+            setTimeout(() => {
+                counter++;
+            }, 1000)
+        });
+
+        expect(counter).toBe(0);
+
+        flushMicrotasks();
+
+        expect(counter).toBe(10)
+
+        flush();
+
+        expect(counter).toBe(11);
+
+    }));
 })

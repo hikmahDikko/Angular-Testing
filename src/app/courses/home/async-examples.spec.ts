@@ -26,4 +26,6 @@ describe("Async Testing Examples", () => {
         flush();
         expect(test).toBeTruthy()
     }));
+
+    it("Asynchronous test example - plain Promise", () => {})
 })

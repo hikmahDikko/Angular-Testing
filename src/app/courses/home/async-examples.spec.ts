@@ -1,4 +1,4 @@
-import { fakeAsync, flush, tick } from "@angular/core/testing";
+import { fakeAsync, flush, flushMicrotasks, tick } from "@angular/core/testing";
 
 describe("Async Testing Examples", () => {
     it("Asychronous test example with jasmine done()", (done : DoneFn) => {
@@ -27,5 +27,15 @@ describe("Async Testing Examples", () => {
         expect(test).toBeTruthy()
     }));
 
-    it("Asynchronous test example - plain Promise", () => {})
+    it("Asynchronous test example - plain Promise", fakeAsync(() => {
+        let test = false;
+        Promise.resolve().then(() => {
+            return Promise.resolve()
+        }).then(() => {
+            test = true;
+        })
+
+        flushMicrotasks();
+        expect(test).toBeTruthy();
+    }))
 })
